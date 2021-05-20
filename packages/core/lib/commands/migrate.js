@@ -255,6 +255,7 @@ const command = {
         const needsMigrating = await Migrate.needsMigrating(config);
 
         if (needsMigrating) {
+          console.log("about to run the migrations")
           return await Migrate.run(config);
         } else {
           config.logger.log("Network up to date.");

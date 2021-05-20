@@ -58,6 +58,7 @@ class Migration {
     // `migrateFn` might be sync or async. We negotiate that difference in
     // `execute` through the deployer API.
     const migrateFn = fn(deployer, options.network, accounts);
+    console.log("about to _deploy")
     await this._deploy(options, deployer, resolver, migrateFn);
   }
 
@@ -180,13 +181,14 @@ class Migration {
    * @param  {Object}   options  config and command-line
    */
   async run(options) {
+    console.log("in migration.run")
     const {
       interfaceAdapter,
       resolver,
       context,
       deployer
     } = this.prepareForMigrations(options);
-
+console.log("about to reporter")
     // Connect reporter to this migration
     if (this.reporter) {
       this.reporter.setMigration(this);
@@ -194,11 +196,13 @@ class Migration {
       this.reporter.confirmations = options.confirmations || 0;
       this.reporter.listen();
     }
+console.log("about to reporter")
 
     // Get file path and emit pre-migration event
     const file = path.relative(options.migrations_directory, this.file);
+    console.log("about to get theblcok")
     const block = await interfaceAdapter.getBlock("latest");
-
+console.log("just got the latest block -- %o", block)
     const preMigrationsData = {
       file: file,
       number: this.number,
@@ -209,6 +213,7 @@ class Migration {
     };
 
     await this.emitter.emit("preMigrate", preMigrationsData);
+    console.log("about to _load");
     await this._load(options, context, deployer, resolver);
   }
 
@@ -227,7 +232,7 @@ class Migration {
 
     // Initial context.
     const context = { web3, interfaceAdapter, config: this.config };
-
+console.log("about to deployer")
     const deployer = new Deployer({
       logger,
       confirmations: options.confirmations,

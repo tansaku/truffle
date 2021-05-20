@@ -23,6 +23,7 @@ export class Web3InterfaceAdapter implements InterfaceAdapter {
   }
 
   public getBlock(block: EvmBlockType) {
+    console.log("getBLock -- %o", block)
     return this.web3.eth.getBlock(block);
   }
 

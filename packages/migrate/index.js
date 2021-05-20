@@ -95,6 +95,7 @@ const Migrate = {
   },
 
   runFrom: async function (number, options) {
+    console.log("in runFrom")
     let migrations = this.assemble(options);
 
     while (migrations.length > 0) {
@@ -115,6 +116,7 @@ const Migrate = {
   },
 
   runMigrations: async function (migrations, options) {
+    console.log("in runMigrations")
     // Perform a shallow clone of the options object
     // so that we can override the provider option without
     // changing the original options object passed in.
@@ -142,11 +144,12 @@ const Migrate = {
       dryRun: options.dryRun,
       migrations,
     });
-
+console.log("outside the try")
     try {
       global.artifacts = clone.resolver;
       global.config = clone;
       for (const migration of migrations) {
+        console.log("about to run a mig")
         await migration.run(clone);
       }
       await this.emitter.emit("postAllMigrations", {
@@ -155,6 +158,7 @@ const Migrate = {
       });
       return;
     } catch (error) {
+      console.log("error!!! - %o", error);
       await this.emitter.emit("postAllMigrations", {
         dryRun: options.dryRun,
         error: error.toString(),

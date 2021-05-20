@@ -58,6 +58,7 @@ async function compile(config) {
     return a.concat(compilation.sources);
   }, []);
 
+  console.log("about to return the wflwcmpl result");
   // return WorkflowCompileResult
   return { contracts, sources, compilations };
 }
