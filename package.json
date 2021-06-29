@@ -10,7 +10,9 @@
     "ci": "./scripts/ci.sh",
     "geth": "./scripts/geth.sh",
     "solc-bump": "node ./scripts/solc-bump.js",
-    "update": "lernaupdate"
+    "update": "lernaupdate",
+    "depcheck": "lerna exec -- bash \\$LERNA_ROOT_PATH/scripts/dep-check.sh --concurrency 1 --stream > dependencies.md",
+    "depcheck:d": "lerna exec -- bash \\$LERNA_ROOT_PATH/scripts/dep-check.sh -d --concurrency 1 --stream > dev-dependencies.md"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.2.0",
