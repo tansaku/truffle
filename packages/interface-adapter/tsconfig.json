@@ -17,7 +17,7 @@
       ]
     },
     "rootDir": "lib",
-    "types": ["bn", "mocha"]
+    "types": ["bn.js", "mocha"]
   },
   "include": [
     "./lib/**/*.ts"
